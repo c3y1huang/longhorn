@@ -117,7 +117,7 @@ spec:
         image: {{ template "registry_url" . }}{{ .Values.image.longhorn.manager.repository }}:{{ .Values.image.longhorn.manager.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         securityContext:
-          runAsUser: 2000
+          privileged: true
         command:
         - longhorn-manager
         - admission-webhook
@@ -138,6 +138,9 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        volumeMounts:
+        - name: longhorn
+          mountPath: /var/lib/longhorn/
       {{- if .Values.privateRegistry.registrySecret }}
       imagePullSecrets:
       - name: {{ .Values.privateRegistry.registrySecret }}
@@ -164,3 +167,7 @@ spec:
         {{- end }}
       {{- end }}
       serviceAccountName: longhorn-service-account
+      volumes:
+      - name: longhorn
+        hostPath:
+          path: /var/lib/longhorn/
