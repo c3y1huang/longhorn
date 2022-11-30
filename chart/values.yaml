@@ -43,7 +43,7 @@ image:
       tag: v3_20220808
     supportBundleKit:
       repository: rancher/support-bundle-kit
-      tag: v0.0.15
+      tag: master-head
   csi:
     attacher:
       repository: longhornio/csi-attacher
