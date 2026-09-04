@@ -1703,6 +1703,18 @@ spec:
                 type: string
               endpoint:
                 type: string
+              engineRestoreError:
+                description: |-
+                  EngineRestoreError is the latest error of a backup restore that failed
+                  in the engine rather than in a replica, for example when the engine
+                  cannot reach a replica while restoring. Longhorn retries the restore
+                  within a time budget and then gives up; the field stays set either way.
+                  Only the V2 Data Engine reports it; it is empty when there is no
+                  engine-level error.
+
+                  Errors that belong to a single replica are reported in RestoreStatus
+                  instead and fail that replica.
+                type: string
               instanceManagerName:
                 type: string
               ip:
